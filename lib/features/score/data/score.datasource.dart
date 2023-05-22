@@ -1,0 +1,2 @@
+/// ScoreDatasource
+abstract class ScoreDatasource {}

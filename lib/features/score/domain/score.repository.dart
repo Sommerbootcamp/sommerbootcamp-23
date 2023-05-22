@@ -1,0 +1,2 @@
+/// ScoreRepository
+abstract class ScoreRepository {}

@@ -1,0 +1,2 @@
+/// ChatRepository
+abstract class ChatRepository {}
