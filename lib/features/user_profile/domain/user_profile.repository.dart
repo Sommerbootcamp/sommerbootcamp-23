@@ -4,6 +4,9 @@ import 'models/user_profile_model.dart';
 
 /// User Profile Repository
 abstract class UserProfileRepository {
+  /// Get all User Profiles
+  Future<List<UserProfileModel>> getProfileList();
+
   /// Get User Profile from user id [userId]
   Future<UserProfileModel?> getUserProfile(String userId);
 

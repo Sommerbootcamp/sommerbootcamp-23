@@ -56,11 +56,30 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     String userId, {
     bool fromCache = true,
   }) async {
-    final userProfile = await getUserProfile(userId);
-    // TODO(nk): Fehlerbehandlung und kram
-    return getProfileImageFromImageId(
-      userProfile!.profileImageId!,
-      fromCache: fromCache,
+    try {
+      final userProfile = await getUserProfile(userId);
+      // TODO(nk): Fehlerbehandlung und kram
+      return getProfileImageFromImageId(
+        userProfile!.profileImageId!,
+        fromCache: fromCache,
+      );
+    } catch (e) {
+      final userProfile = await getUserProfile(userId);
+      return appwriteClient.avatars.getInitials(name: userProfile?.displayName);
+    }
+  }
+
+  @override
+  Future<List<UserProfileModel>> getProfileList() async {
+    final userProfiles = await appwriteClient.databases.listDocuments(
+      databaseId: appwriteClient.databaseId,
+      collectionId: appwriteClient.userProfileCollectionId,
     );
+
+    final userProfileModels = userProfiles.convertTo(
+      (p0) => UserProfileModel.fromJson(p0 as Map<String, dynamic>),
+    );
+
+    return userProfileModels;
   }
 }

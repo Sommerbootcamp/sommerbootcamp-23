@@ -8,6 +8,7 @@ class AppwriteClient {
   static Databases? _databases;
   static Account? _account;
   static Realtime? _realtime;
+  static Avatars? _avatars;
   static const String _apiEndpoint = String.fromEnvironment('API_ENDPOINT');
   static const String _projectId = String.fromEnvironment('PROJECT_ID');
 
@@ -25,6 +26,10 @@ class AppwriteClient {
   String get userProfileCollectionId => const String.fromEnvironment(
         'USERPROFILE_COLLECTION_ID',
       );
+
+  /// Get Chat Messages Collection Id
+  String get chatMessagesCollectionId =>
+      const String.fromEnvironment('CHATMESSAGES_COLLECTION_ID');
 
   /// Get Post Bucket Id
   String get postsBucketId =>
@@ -52,4 +57,7 @@ class AppwriteClient {
 
   /// Get Appwrite [Realtime]
   Realtime get realtime => _realtime ?? Realtime(client);
+
+  /// Get Appwrite [Avatars]
+  Avatars get avatars => _avatars ?? Avatars(client);
 }
