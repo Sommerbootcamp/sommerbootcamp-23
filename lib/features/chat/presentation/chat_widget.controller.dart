@@ -40,6 +40,8 @@ class ChatWidgetController extends StateNotifier<ChatWidgetControllerState> {
     required String receiverId,
     required String message,
   }) async {
-    await _chatRepo.sendMessage(receiverId: receiverId, message: message);
+    // TODO(team): Sende die Nachricht
+    // await _chatRepo.sendMessage(receiverId: receiverId, message: message);
+    // await _chatRepo.sendMessage(receiverId: message, message: receiverId);
   }
 }

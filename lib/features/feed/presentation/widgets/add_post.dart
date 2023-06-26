@@ -64,8 +64,8 @@ class _AddPostState extends State<AddPost> {
                 if (null == image)
                   AddPostImagePicker(
                     onImagePicked: (Uint8List? selectedImage) {
-                      // TODO(team): Aufgabe: Zeige das ausgewählte Bild an
                       setState(() {
+                        // TODO(team): Aufgabe: Zeige das ausgewählte Bild an
                         image = selectedImage;
                       });
                     },
