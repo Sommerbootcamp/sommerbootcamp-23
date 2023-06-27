@@ -150,10 +150,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                           // !_obscurePassword;
 
                                           // Antwort B
-                                          setState(() {
-                                            _obscurePassword =
-                                                !_obscurePassword;
-                                          });
+                                          // setState(() {
+                                          //   _obscurePassword =
+                                          //       !_obscurePassword;
+                                          // });
 
                                           // Antwort C
                                           // setState(() {

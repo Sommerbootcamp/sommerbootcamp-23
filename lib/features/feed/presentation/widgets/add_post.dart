@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'add_post_image_picker.dart';
@@ -64,10 +63,23 @@ class _AddPostState extends State<AddPost> {
                 if (null == image)
                   AddPostImagePicker(
                     onImagePicked: (Uint8List? selectedImage) {
-                      setState(() {
-                        // TODO(team): Aufgabe: Zeige das ausgewählte Bild an
-                        image = selectedImage;
-                      });
+                      // TODO(team): Zeige das ausgewählte Bild an
+
+                      // Antwort A
+                      // image = null
+                      // setState(() {
+                      //   true;
+                      // })
+
+                      // Antwort B
+                      // setState(() {
+                      //   image = null;
+                      // });
+
+                      // Antwort C
+                      // setState(() {
+                      //   image = selectedImage;
+                      // });
                     },
                   ),
               ],
@@ -84,8 +96,9 @@ class _AddPostState extends State<AddPost> {
         const Spacer(),
         TextButton(
           onPressed: () {
-            // TODO(nk): Aufgabe: Navigiere zur letzten Seite zurück
-            Navigator.of(context).pop();
+            // TODO(team): Aufgabe: Navigiere zur letzten Seite zurück. Schau
+            // dazu am besten an welche Funktionen 'Navigator.of(context)' zur
+            // Verfügung stellt.
           },
           child: const Row(
             children: [
@@ -100,10 +113,20 @@ class _AddPostState extends State<AddPost> {
         const Spacer(),
         TextButton(
           onPressed: () {
-            // TODO(team): Aufgabe: Navigiere zur nächsten Seite um den Beitrag
-            //  ohne ein Bild zu verfassen
+            // TODO(team): Navigiere zur nächsten Seite um den Beitrag
+            // ohne ein Bild zu verfassen
 
-            GoRouter.of(context).push('/feed/add/comment');
+            // Antwort A
+            // GoRouter.of(context).push('/login');
+
+            // Antwort B
+            // GoRouter.of(context).push('/add-comment/to/feed');
+
+            // Antwort C
+            // GoRouter.of(context).push('/feed/add/comment');
+
+            // Antwort D
+            // GoRouter.of(context).push(FeedRoutes().routes.first.path);
           },
           child: const Row(
             children: [
@@ -126,12 +149,25 @@ class _AddPostState extends State<AddPost> {
         const Spacer(),
         TextButton(
           onPressed: () {
-            // TODO(team): Aufgabe: Lösche das ausgewählte Image, der Nutzer
+            // TODO(team): Lösche das ausgewählte Image, der Nutzer
             // muss wieder in der Lage sein ein Image auszuwählen oder mit der
             // Kamera aufzunehmen
-            setState(() {
-              image = null;
-            });
+
+            // Antwort A
+            // image = null
+            // setState(() {
+            //   true;
+            // })
+
+            // Antwort B
+            // setState(() {
+            //   image = null;
+            // });
+
+            // Antwort C
+            // setState(() {
+            //   image = selectedImage;
+            // });
           },
           child: const Row(
             children: [
@@ -146,12 +182,25 @@ class _AddPostState extends State<AddPost> {
         const Spacer(),
         ElevatedButton(
           onPressed: () {
-            // TODO(team): Aufgabe: navigiere zur nächsten Seite, die nächste
+            // TODO(team): navigiere zur nächsten Seite, die nächste
             // Seite benötigt das Image, wenn eins ausgewählt wurde
-            GoRouter.of(context).push(
-              '/feed/add/comment',
-              extra: image,
-            );
+
+            // Antwort A
+            // GoRouter.of(context).push(
+            //   '/feed/add/comment',
+            //   extra: image,
+            // );
+
+            // Antwort B
+            // GoRouter.of(context).push(
+            //   '/feed/add/comment',
+            //   extra: null,
+            // );
+
+            // Antwort C
+            // GoRouter.of(context).push(
+            //   '/feed/add/comment',
+            // );
           },
           child: const Row(
             children: [
