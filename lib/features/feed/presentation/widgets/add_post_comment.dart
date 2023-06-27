@@ -2,9 +2,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../shared.dart';
 
 /// Add Post Comment Page
 class AddPostComment extends ConsumerStatefulWidget {
@@ -22,7 +19,7 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
   final TextEditingController commentTextController = TextEditingController();
   final TextEditingController hashtagTextController = TextEditingController();
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final int maxCommentTextCount = 300;
+
   // final FeedService feedService = FeedService();
   bool isSaving = false;
 
@@ -32,15 +29,9 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
   void initState() {
     super.initState();
 
-    // TODO(team): Aufgabe: Zähle die Zeichen des Beitrags und gib diese in
-    // unterhalb des Textfeldes des Beitrags aus
-
     commentTextController.addListener(() {
-      if (commentTextCount != commentTextController.value.text.length) {
-        setState(() {
-          commentTextCount = commentTextController.value.text.length;
-        });
-      }
+      // TODO(team): Aufgabe: Zähle die Zeichen des Beitrags und gib diese
+      // unterhalb des Textfeldes des Beitrags aus
     });
   }
 
@@ -74,15 +65,13 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                   ),
                   // TODO(team): Aufgabe: Beschränke die Eingabe auf maximal 300
                   // Zeichen und gebe die Anzahl der bereits eingegebene Zeichen
-                  // unterhalb des Formularfeldes aus
+                  // unterhalb des Formularfeldes aus.
                   TextFormField(
                     readOnly: isSaving,
                     controller: commentTextController,
-                    maxLength: maxCommentTextCount,
                     decoration: InputDecoration(
                       hintText:
                           'Verfasse eine Beschreibung zu Deinem Beitrag...',
-                      counterText: '$commentTextCount/$maxCommentTextCount',
                       border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(5),
@@ -131,15 +120,6 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                     validator: (String? text) {
                       // TODO(team): Aufgabe: Prüfe ob alle Tags mit einer Raute
                       // (#) beginnen
-                      if (true == text?.isNotEmpty) {
-                        final tags = text!.split(' ');
-
-                        for (final tag in tags) {
-                          if (!tag.startsWith('#')) {
-                            return 'Tags müssen mit einer # beginnen';
-                          }
-                        }
-                      }
                       return null;
                     },
                   ),
@@ -162,8 +142,9 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
           onPressed: isSaving
               ? null
               : () {
-                  // TODO(team): Aufgabe: Navigiere zurück zur vorherigen Seite
-                  GoRouter.of(context).pop();
+                  // TODO(team): Aufgabe: Navigiere zurück zur vorherigen Seite.
+                  // Schau dazu am besten an welche Funktionen
+                  // 'Navigator.of(context)' zur Verfügung stellt.
                 },
           child: const Row(
             children: [
@@ -180,32 +161,23 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
           onPressed: isSaving
               ? null
               : () {
-                  // TODO(team): Aufgabe: Validiere die Eingaben und speichere
+                  // TODO(team): Validiere die Eingaben und speichere
                   // die Daten im Backend und kehre bei Erfolg auf die FeedPage
                   // zurück. Ist das speichern erfolglos, gebe einen Hinweis aus
                   // und verbleibe auf dieser Seite
 
-                  if (true == formState.currentState?.validate()) {
-                    setState(() {
-                      isSaving = true;
-                    });
+                  // TODO(team): Eingaben validieren
+                  if (true) {
+                    // TODO(team): tags aus dem hastag Textfeld als liste in eine Variable speichern
 
-                    final tags = hashtagTextController.value.text.split(' ');
                     try {
-                      ref
-                          .read(FeedProviders.feedRepository)
-                          .createPost(
-                            comment: commentTextController.text,
-                            tags: tags,
-                            image: widget.image,
-                          )
-                          .then((_) => GoRouter.of(context).go('/feed'));
+                      // TODO(team): den Post abschicken - schaue dir dazu die
+                      // Klasse unter
+                      // lib/features/feed/data/feed.repository.impl.dart
+                      // an. Diese Klasse kann das. Wenn das Abschicken geklappt
+                      // hat, dann kehre zur FeedPage zurück.
                     } catch (e) {
-                      // TODO(team): Aufgabe: Erstelle einen Fehlerdialog
-                    } finally {
-                      setState(() {
-                        isSaving = false;
-                      });
+                      // TODO(team): Aufgabe: Erstelle den Fehlerdialog hier
                     }
                   }
                 },
