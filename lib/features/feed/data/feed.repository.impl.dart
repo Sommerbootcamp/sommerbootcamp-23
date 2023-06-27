@@ -56,7 +56,9 @@ class FeedRepositoryImpl implements FeedRepository {
       imageBlurHash = BlurHash.encode(blurImage!).hash;
     }
 
-    // TODO(team): lege eine Model Klasse an
+    // TODO(team): lege eine Model Klasse an. Aktuell hat die Variable data
+    // unten den Typ Map<String, dynamic>. Erkundige dich auch gerne was eine
+    // Map ist.
     final data = <String, dynamic>{
       'user_id': authRepository.currentUser?.$id,
       'comment': comment,
