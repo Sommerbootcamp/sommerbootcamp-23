@@ -17,6 +17,7 @@ class SettingsPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
+          // TODO(team): den Abmeldeknopf horizontal zentrieren
           ElevatedButton(
             onPressed: () async {
               await authRepository.signOut();

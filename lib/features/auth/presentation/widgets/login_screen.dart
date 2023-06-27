@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -24,29 +23,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    Widget buildAlertDialog(BuildContext context) {
-      const title = 'Anmeldung fehlgeschlagen';
-      const content = 'Dein Benutzername und/oder Passwort sind nicht korrekt.';
-      if (Platform.isIOS) {
-        return CupertinoAlertDialog(
-          title: const Text(title),
-          content: const Text(content),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      }
-
-      return AlertDialog(
+  Widget buildAlertDialog(BuildContext context) {
+    const title = 'Anmeldung fehlgeschlagen';
+    const content = 'Dein Benutzername und/oder Passwort sind nicht korrekt.';
+    if (Platform.isIOS) {
+      return CupertinoAlertDialog(
         title: const Text(title),
         content: const Text(content),
         actions: [
@@ -59,6 +40,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         ],
       );
     }
+
+    return AlertDialog(
+      title: const Text(title),
+      content: const Text(content),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraint) {
@@ -94,6 +93,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          // TODO(team): Denk dir einen eigenen Namen für diese
+                          // App aus und ersetze Sommerbootcamp '23 unten mit
+                          // dem Namen, den du dir ausgedacht hast.
                           Text(
                             "Sommerbootcamp '23",
                             style: TextStyle(
@@ -142,11 +144,28 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                           // TODO(team): Aufgabe: Implementiere
                                           // eine Funktion die das Passwort im
                                           // Klartext zur Kontrolle anzeigt
+
+                                          // Antwort A
+                                          // _obscurePassword =
+                                          // !_obscurePassword;
+
+                                          // Antwort B
                                           setState(() {
                                             _obscurePassword =
                                                 !_obscurePassword;
                                           });
+
+                                          // Antwort C
+                                          // setState(() {
+                                          //   true
+                                          // });
                                         },
+                                        // TODO(team): Das Icon soll sich ändern, je
+                                        // nachdem ob das Passwort angezeigt
+                                        // wird oder nicht. Suche dir ein
+                                        // passendes Icon, dass angezeigt
+                                        // wird, wenn man das Passwort lesen
+                                        // kann.
                                         icon: const Icon(
                                           Icons.remove_red_eye_outlined,
                                         ),
@@ -160,9 +179,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   ),
                                   MaterialButton(
                                     onPressed: () async {
-                                      // TODO(team): Aufgabe: Implementiere die
-                                      //  Nutzeranmeldung, bei einem Fehler soll
-                                      //  dieser entsprechend angezeigt werden
                                       try {
                                         if (false ==
                                             _formKey.currentState?.validate()) {
@@ -177,12 +193,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                               _passwordController.value.text,
                                         );
                                       } catch (e) {
-                                        unawaited(
-                                          showDialog(
-                                            context: context,
-                                            builder: buildAlertDialog,
-                                          ),
-                                        );
+                                        // TODO(team): Aufgabe: Implementiere
+                                        // die Nutzeranmeldung, bei einem Fehler
+                                        // soll dieser entsprechend angezeigt
+                                        // werden Tipp: schau dir die Funktion
+                                        // 'buildAlertDialog' weiter oben an.
+                                        // Recherchiere außerdem wie man einen
+                                        // Dialog in einer Flutter App anzeigt.
                                       }
                                     },
                                     minWidth: double.infinity,
@@ -191,7 +208,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     textColor: Theme.of(context)
                                         .colorScheme
                                         .onSecondary,
-                                    child: const Text('Login'),
+                                    // TODO(team): Auf der Loginseite abmelden?
+                                    // Das kann nicht stimmen! Ändere den Text
+                                    // in etwas sinnvolleres.
+                                    child: const Text('Abmelden'),
                                   ),
                                   const Text('Passwort vergessen')
                                 ],
