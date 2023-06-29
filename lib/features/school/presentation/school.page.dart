@@ -10,7 +10,7 @@ class SchoolPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('School'),
+        title: const Text('Hausaufgaben'),
       ),
       body: Container(),
     );
