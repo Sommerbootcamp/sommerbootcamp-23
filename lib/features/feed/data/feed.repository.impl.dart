@@ -57,8 +57,8 @@ class FeedRepositoryImpl implements FeedRepository {
     }
 
     // TODO(team): lege eine Model Klasse an. Aktuell hat die Variable data
-    // unten den Typ Map<String, dynamic>. Erkundige dich auch gerne was eine
-    // Map ist.
+    // unten den Typ Map<String, dynamic>. Erkundige dich auch gerne im Internet
+    // was die Datenstruktur Map ist und was sie kann.
     final data = <String, dynamic>{
       'user_id': authRepository.currentUser?.$id,
       'comment': comment,

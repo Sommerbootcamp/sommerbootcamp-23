@@ -69,10 +69,10 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                   TextFormField(
                     readOnly: isSaving,
                     controller: commentTextController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText:
                           'Verfasse eine Beschreibung zu Deinem Beitrag...',
-                      border: const OutlineInputBorder(
+                      border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(5),
                         ),
@@ -166,9 +166,12 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                   // zurück. Ist das speichern erfolglos, gebe einen Hinweis aus
                   // und verbleibe auf dieser Seite
 
-                  // TODO(team): Eingaben validieren
+                  // TODO(team): Eingaben in untenstehenden if-Bedingung
+                  // validieren
                   if (true) {
-                    // TODO(team): tags aus dem hastag Textfeld als liste in eine Variable speichern
+                    // TODO(team): Tags aus dem Hastag Textfeld als Liste in
+                    // eine Variable speichern. Recherchiere was die
+                    // Datenstruktur 'Liste' ist
 
                     try {
                       // TODO(team): den Post abschicken - schaue dir dazu die
@@ -177,7 +180,8 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                       // an. Diese Klasse kann das. Wenn das Abschicken geklappt
                       // hat, dann kehre zur FeedPage zurück.
                     } catch (e) {
-                      // TODO(team): Aufgabe: Erstelle den Fehlerdialog hier
+                      // TODO(team): Aufgabe: Erstelle den Fehlerdialog hier,
+                      // falls ein Fehler aufgetreten ist.
                     }
                   }
                 },

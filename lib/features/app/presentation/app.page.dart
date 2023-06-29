@@ -59,7 +59,6 @@ class Home extends StatelessWidget {
 //       bottomNavigationBar: BottomNavigationBar(
 //         type: BottomNavigationBarType.fixed,
 //         onTap: (int index) {
-// TODO(team): Aufgabe: Wechsel anhand der Icons zwischen den Seiten
 //           setState(() {
 //             currentPageIndex = index;
 //           });
