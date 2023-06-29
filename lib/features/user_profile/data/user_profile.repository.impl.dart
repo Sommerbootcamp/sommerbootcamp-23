@@ -58,7 +58,6 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }) async {
     try {
       final userProfile = await getUserProfile(userId);
-      // TODO(nk): Fehlerbehandlung und kram
       return getProfileImageFromImageId(
         userProfile!.profileImageId!,
         fromCache: fromCache,

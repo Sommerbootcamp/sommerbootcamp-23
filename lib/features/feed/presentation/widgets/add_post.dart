@@ -97,7 +97,7 @@ class _AddPostState extends State<AddPost> {
         TextButton(
           onPressed: () {
             // TODO(team): Aufgabe: Navigiere zur letzten Seite zurück. Schau
-            // dazu am besten an welche Funktionen 'Navigator.of(context)' zur
+            // dazu am besten an, welche Funktionen 'Navigator.of(context)' zur
             // Verfügung stellt.
           },
           child: const Row(
