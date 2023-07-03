@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_validator/form_validator.dart';
 
 import '../../../../app_theme.dart';
-import '../../shared.dart';
 
 /// Login Screen Widget
 class LoginScreen extends ConsumerStatefulWidget {
@@ -180,18 +179,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   MaterialButton(
                                     onPressed: () async {
                                       try {
-                                        if (false ==
-                                            _formKey.currentState?.validate()) {
+                                        // TODO: validiere das Feld für Passwort
+                                        // und Email. Schaue dir dazu die
+                                        // Variable _formKey an und was sie
+                                        // kann.
+                                        if (true) {
                                           return;
                                         }
-                                        final authRepository = ref
-                                            .read(AuthProviders.authRepository);
-                                        await authRepository
-                                            .loginWithEmailAndPassword(
-                                          email: _emailController.value.text,
-                                          password:
-                                              _passwordController.value.text,
-                                        );
+
+                                        // TODO: logge dich mit Nutzername und
+                                        // Passwort ein schaue dir dazu die
+                                        // Klasse unter
+                                        // lib/features/auth/data/auth.repository.impl.dart
+                                        // an. Diese Klasse kann das.
                                       } catch (e) {
                                         // TODO(team): Aufgabe: Implementiere
                                         // die Nutzeranmeldung, bei einem Fehler
