@@ -1,7 +1,10 @@
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 /// Add Post Comment Page
 class AddPostComment extends ConsumerStatefulWidget {
@@ -22,19 +25,25 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
 
   // final FeedService feedService = FeedService();
   bool isSaving = false;
-
+  bool h = true;
   int commentTextCount = 0;
+
+  get readOnly => null;
 
   @override
   void initState() {
     super.initState();
 
     commentTextController.addListener(() {
-      // TODO(team): Aufgabe: Zähle die Zeichen des Beitrags und gib diese
-      // unterhalb des Textfeldes des Beitrags aus
+  int chars = commentTextController.text.length;
+      // TODO = fertig
+    setState(() {
+       commentTextController.text.length;
+    });
     });
   }
 
+  int maxLength = 300;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -63,13 +72,37 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                   const SizedBox(
                     height: 8,
                   ),
-                  // TODO(team): Aufgabe: Beschränke die Eingabe auf maximal 300
+
+
+                  // TODO = fertig
                   // Zeichen und gebe die Anzahl der bereits eingegebene Zeichen
                   // unterhalb des Formularfeldes aus.
                   TextFormField(
+
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(maxLength)
+                    ],
+                      keyboardType: TextInputType.text,
+
+                      /*
+                      onChanged: (String newVal) {
+                       if(maxLength >= commentTextController.text.length){
+                         commentTextController.text = newVal.substring(0, maxLength);
+                       }
+                      },
+                      */
+                    validator: (String? text) {
+                      if (true == text?.isEmpty) {
+                        return 'Du musst einen Beitrag verfassen';
+                      }
+                      return null;
+                    },
+
+
                     readOnly: isSaving,
                     controller: commentTextController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      counter: Text('${commentTextController.text.length} / 300'),
                       hintText:
                           'Verfasse eine Beschreibung zu Deinem Beitrag...',
                       border: OutlineInputBorder(
@@ -79,12 +112,7 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                       ),
                     ),
                     maxLines: 5,
-                    validator: (String? text) {
-                      if (true == text?.isEmpty) {
-                        return 'Du musst einen Beitrag verfassen';
-                      }
-                      return null;
-                    },
+
                   ),
                   const SizedBox(
                     height: 8,
@@ -104,6 +132,7 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                   const SizedBox(
                     height: 8,
                   ),
+
                   TextFormField(
                     readOnly: isSaving,
                     controller: hashtagTextController,
@@ -118,8 +147,18 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                     ),
                     maxLines: 2,
                     validator: (String? text) {
-                      // TODO(team): Aufgabe: Prüfe ob alle Tags mit einer Raute
+                      if(null == text) {
+                        return null;
+                      }
+                      final tags = text.split(' ');
+                      // TODO = fertig
                       // (#) beginnen
+                      for (var item in tags){
+                        if(!item.startsWith('#')){
+                          return 'ungültiger hashtag';// if true
+                        }
+                      }
+
                       return null;
                     },
                   ),
@@ -142,7 +181,9 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
           onPressed: isSaving
               ? null
               : () {
-                  // TODO(team): Aufgabe: Navigiere zurück zur vorherigen Seite.
+            Navigator.pop(context);
+
+            // TODO = fertig
                   // Schau dazu am besten an welche Funktionen
                   // 'Navigator.of(context)' zur Verfügung stellt.
                 },
@@ -161,6 +202,7 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
           onPressed: isSaving
               ? null
               : () {
+
                   // TODO(team): Validiere die Eingaben und speichere
                   // die Daten im Backend und kehre bei Erfolg auf die FeedPage
                   // zurück. Ist das speichern erfolglos, gebe einen Hinweis aus
@@ -168,7 +210,10 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
 
                   // TODO(team): Eingaben in untenstehenden if-Bedingung
                   // validieren
-                  if (true) {
+                  if (!formState.currentState!.validate()) {
+                    final String tagsString = hashtagTextController.text;
+
+                    List<String> list = tagsString.split(' ');
                     // TODO(team): Tags aus dem Hastag Textfeld als Liste in
                     // eine Variable speichern. Recherchiere was die
                     // Datenstruktur 'Liste' ist
@@ -179,9 +224,12 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                       // lib/features/feed/data/feed.repository.impl.dart
                       // an. Diese Klasse kann das. Wenn das Abschicken geklappt
                       // hat, dann kehre zur FeedPage zurück.
+
+                      GoRouter.of(context).push('/feed',);
                     } catch (e) {
                       // TODO(team): Aufgabe: Erstelle den Fehlerdialog hier,
                       // falls ein Fehler aufgetreten ist.
+                        print('Ein Fehler ist aufgetreten: $e');
                     }
                   }
                 },

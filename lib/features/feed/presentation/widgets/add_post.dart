@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'add_post_image_picker.dart';
@@ -63,23 +64,11 @@ class _AddPostState extends State<AddPost> {
                 if (null == image)
                   AddPostImagePicker(
                     onImagePicked: (Uint8List? selectedImage) {
-                      // TODO(team): Zeige das ausgewählte Bild an
+                      // TODO = fertig
 
-                      // Antwort A
-                      // image = null
-                      // setState(() {
-                      //   true;
-                      // })
-
-                      // Antwort B
-                      // setState(() {
-                      //   image = null;
-                      // });
-
-                      // Antwort C
-                      // setState(() {
-                      //   image = selectedImage;
-                      // });
+                      setState(() {
+                        image = selectedImage;
+                       });
                     },
                   ),
               ],
@@ -96,12 +85,14 @@ class _AddPostState extends State<AddPost> {
         const Spacer(),
         TextButton(
           onPressed: () {
-            // TODO(team): Aufgabe: Navigiere zur letzten Seite zurück. Schau
+            Navigator.pop(context);
+            // TODO = fertig
             // dazu am besten an, welche Funktionen 'Navigator.of(context)' zur
             // Verfügung stellt.
           },
           child: const Row(
             children: [
+
               Icon(Icons.arrow_circle_left_outlined),
               SizedBox(
                 width: 4,
@@ -113,20 +104,14 @@ class _AddPostState extends State<AddPost> {
         const Spacer(),
         TextButton(
           onPressed: () {
-            // TODO(team): Navigiere zur nächsten Seite um den Beitrag
+            // TODO = fertig
             // ohne ein Bild zu verfassen
 
-            // Antwort A
-            // GoRouter.of(context).push('/login');
+            //Navigator.pop(context);
 
-            // Antwort B
-            // GoRouter.of(context).push('/add-comment/to/feed');
+            GoRouter.of(context).push('/feed/add/comment');
 
-            // Antwort C
-            // GoRouter.of(context).push('/feed/add/comment');
 
-            // Antwort D
-            // GoRouter.of(context).push(FeedRoutes().routes.first.path);
           },
           child: const Row(
             children: [
@@ -149,25 +134,16 @@ class _AddPostState extends State<AddPost> {
         const Spacer(),
         TextButton(
           onPressed: () {
-            // TODO(team): Lösche das ausgewählte Image, der Nutzer
+            // TODO = fertig
             // muss wieder in der Lage sein ein Image auszuwählen oder mit der
             // Kamera aufzunehmen
 
-            // Antwort A
-            // image = null
-            // setState(() {
-            //   true;
-            // })
 
-            // Antwort B
-            // setState(() {
-            //   image = null;
-            // });
+             setState(() {
+               image = null;
+             });
 
-            // Antwort C
-            // setState(() {
-            //   image = selectedImage;
-            // });
+
           },
           child: const Row(
             children: [
@@ -185,11 +161,11 @@ class _AddPostState extends State<AddPost> {
             // TODO(team): navigiere zur nächsten Seite, die nächste
             // Seite benötigt das Image, wenn eins ausgewählt wurde
 
-            // Antwort A
-            // GoRouter.of(context).push(
-            //   '/feed/add/comment',
-            //   extra: image,
-            // );
+
+             GoRouter.of(context).push(
+            '/feed/add/comment',
+               extra: image,
+             );
 
             // Antwort B
             // GoRouter.of(context).push(

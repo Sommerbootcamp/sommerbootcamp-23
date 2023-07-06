@@ -15,14 +15,16 @@ class SettingsPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Settings'),
       ),
-      body: Column(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // TODO(team): den Abmeldeknopf horizontal zentrieren
+         // TODO = fertig
           ElevatedButton(
             onPressed: () async {
               await authRepository.signOut();
             },
-            child: const Text('Abmelden'),
+            child: const Text('Abmelden', textAlign: TextAlign.center,),
           ),
         ],
       ),

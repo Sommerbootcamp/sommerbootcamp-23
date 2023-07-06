@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_validator/form_validator.dart';
 
 import '../../../../app_theme.dart';
+import '../../shared.dart';
 
 /// Login Screen Widget
 class LoginScreen extends ConsumerStatefulWidget {
@@ -92,11 +93,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // TODO(team): Denk dir einen eigenen Namen für diese
+                          // todo = fertig
                           // App aus und ersetze Sommerbootcamp '23 unten mit
                           // dem Namen, den du dir ausgedacht hast.
                           Text(
-                            "Sommerbootcamp '23",
+                            "funnySchool",
                             style: TextStyle(
                               fontFamily: AppTheme.pacificoFontName,
                               fontSize: 24,
@@ -140,34 +141,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                           const Icon(Icons.lock_outline),
                                       suffixIcon: IconButton(
                                         onPressed: () {
-                                          // TODO(team): Aufgabe: Implementiere
-                                          // eine Funktion die das Passwort im
-                                          // Klartext zur Kontrolle anzeigt
+                                        // todo = Fertig
+                                           setState(() {
+                                             _obscurePassword =
+                                                 !_obscurePassword;
+                                           });
 
-                                          // Antwort A
-                                          // _obscurePassword =
-                                          // !_obscurePassword;
 
-                                          // Antwort B
-                                          // setState(() {
-                                          //   _obscurePassword =
-                                          //       !_obscurePassword;
-                                          // });
-
-                                          // Antwort C
-                                          // setState(() {
-                                          //   true
-                                          // });
                                         },
-                                        // TODO(team): Das Icon soll sich ändern, je
+                                        // todo = Fertig
                                         // nachdem ob das Passwort angezeigt
                                         // wird oder nicht. Suche dir ein
                                         // passendes Icon, dass angezeigt
                                         // wird, wenn man das Passwort lesen
                                         // kann.
-                                        icon: const Icon(
-                                          Icons.remove_red_eye_outlined,
-                                        ),
+                                        icon: _obscurePassword ?  const Icon(
+                                          Icons.remove_red_eye_outlined ) :
+                                        const Icon(Icons.shield),
                                       ),
                                     ),
                                     obscureText: _obscurePassword,
@@ -179,21 +169,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   MaterialButton(
                                     onPressed: () async {
                                       try {
-                                        // TODO: validiere das Feld für Passwort
-                                        // und Email. Schaue dir dazu die
-                                        // Variable _formKey an und was sie
-                                        // kann.
-                                        if (true) {
-                                          return;
-                                        }
+                                        // TODO = fertig
 
-                                        // TODO: logge dich mit Nutzername und
+                                        if (!_formKey.currentState!.validate()) {
+                                          throw Exception('Eingabe falsch');
+                                        }
+                                        // TODO = fertig
                                         // Passwort ein schaue dir dazu die
                                         // Klasse unter
                                         // lib/features/auth/data/auth.repository.impl.dart
                                         // an. Diese Klasse kann das.
+                                      await  ref.read(AuthProviders.authRepository).loginWithEmailAndPassword(email: _emailController.text , password: _passwordController.text );
                                       } catch (e) {
-                                        // TODO(team): Aufgabe: Implementiere
+                                         await showDialog(context: context, builder: buildAlertDialog);
+                                         }
+                                        // TODO = fertig
                                         // die Nutzeranmeldung, bei einem Fehler
                                         // soll dieser entsprechend angezeigt
                                         // werden Tipp: schau dir die Funktion
@@ -201,17 +191,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         // Recherchiere außerdem wie man einen
                                         // Dialog in einer Flutter App anzeigt.
                                       }
-                                    },
+      ,
                                     minWidth: double.infinity,
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                     textColor: Theme.of(context)
                                         .colorScheme
                                         .onSecondary,
-                                    // TODO(team): Auf der Loginseite abmelden?
+
                                     // Das kann nicht stimmen! Ändere den Text
                                     // in etwas sinnvolleres.
-                                    child: const Text('Abmelden'),
+                                    child: const Text('Anmelden'),
                                   ),
                                   const Text('Passwort vergessen')
                                 ],

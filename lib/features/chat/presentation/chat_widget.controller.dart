@@ -40,7 +40,7 @@ class ChatWidgetController extends StateNotifier<ChatWidgetControllerState> {
     required String receiverId,
     required String message,
   }) async {
-    // TODO(team): Sende die Nachricht
+    // TODO = fertig
     // Antwort A
     // await _chatRepo.sendMessage(
     //   receiverId: '-1',
@@ -54,9 +54,9 @@ class ChatWidgetController extends StateNotifier<ChatWidgetControllerState> {
     // );
 
     // Antwort C
-    // await _chatRepo.sendMessage(
-    //   receiverId: receiverId,
-    //   message: message,
-    // );
+     await _chatRepo.sendMessage(
+       receiverId: receiverId,
+     message: message,
+    );
   }
 }

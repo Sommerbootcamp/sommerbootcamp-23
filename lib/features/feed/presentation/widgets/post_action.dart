@@ -4,12 +4,23 @@ import 'package:intl/intl.dart';
 import '../../domain.dart';
 
 /// Actions on a Post Item
-class PostAction extends StatelessWidget {
+class PostAction extends StatefulWidget {
   /// constructor
   const PostAction({required this.postModel, super.key});
 
   /// POstModel
   final PostModel postModel;
+  @override
+  State<StatefulWidget> createState() {
+    return PostActionState();
+  }
+
+}
+
+
+class PostActionState extends State<PostAction> {
+  bool _color = true;
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +29,28 @@ class PostAction extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(Icons.favorite_outline),
+
+          GestureDetector(
+            onTap: () {
+
+              setState(() {
+              _color =
+              !_color;
+              });
+            },
+      child: _color ?  const Icon(
+          Icons.favorite_outline, color: Colors.black,) :
+      const Icon(Icons.favorite, color: Colors.red,)
+
+          ),
           Text(
-            DateFormat('dd.MM.yyyy HH:mm').format(postModel.createdAt),
+            DateFormat('dd.MM.yyyy HH:mm').format(widget.postModel.createdAt),
+
+
           ),
         ],
       ),
     );
   }
+
 }

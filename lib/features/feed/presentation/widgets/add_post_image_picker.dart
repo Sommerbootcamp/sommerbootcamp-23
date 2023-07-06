@@ -20,6 +20,10 @@ class AddPostImagePicker extends StatelessWidget {
         const Spacer(),
         ElevatedButton(
           onPressed: () async {
+            final file = await _picker.pickImage(source: ImageSource.camera);
+            if(null != file){
+              onImagePicked(await file.readAsBytes());
+            }
             // TODO(team): Öffne die Kamera und mache ein Bild für den
             // Beitrag. Schau dir dazu dein ImagePicker an, der in der Variable
             // '_picker' in Zeile 13 gespeichert wurde. Welche Funktionalität
@@ -35,6 +39,10 @@ class AddPostImagePicker extends StatelessWidget {
         const Spacer(),
         ElevatedButton(
           onPressed: () async {
+            final file = await _picker.pickImage(source: ImageSource.gallery);
+            if(null != file){
+              onImagePicked(await file.readAsBytes());
+            }
             // TODO(team): Aufgabe: Öffne die Bildergalerie um ein Bild für
             // deinen Beitrag auszuwählen. Schau dir dazu dein ImagePicker an,
             // der in der Variable '_picker' in Zeile 13 gespeichert wurde.
