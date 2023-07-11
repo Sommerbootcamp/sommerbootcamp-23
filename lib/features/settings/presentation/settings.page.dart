@@ -19,7 +19,7 @@ class SettingsPage extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-         // TODO = fertig
+         //  = fertig
           ElevatedButton(
             onPressed: () async {
               await authRepository.signOut();

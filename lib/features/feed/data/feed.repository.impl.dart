@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import '../../auth/domain/auth.repository.dart';
 import '../../core/shared.dart';
 import '../domain.dart';
+import 'post.dart';
 
 /// Implementation for [FeedRepository]
 class FeedRepositoryImpl implements FeedRepository {
@@ -56,23 +57,25 @@ class FeedRepositoryImpl implements FeedRepository {
       imageBlurHash = BlurHash.encode(blurImage!).hash;
     }
 
-    // TODO(team): lege eine Model Klasse an. Aktuell hat die Variable data
+    // fertig: lege eine Model Klasse an. Aktuell hat die Variable data
     // unten den Typ Map<String, dynamic>. Erkundige dich auch gerne im Internet
     // was die Datenstruktur Map ist und was sie kann.
-    final data = <String, dynamic>{
-      'user_id': authRepository.currentUser?.$id,
-      'comment': comment,
-      'tags': tags,
-      'image_id': imageId,
-      'image_blur_hash': imageBlurHash,
-    };
+
+    final post = Post(authRepository.currentUser?.$id, comment, tags, imageId, imageBlurHash);
+
 
     try {
       await appwriteClient.databases.createDocument(
           databaseId: appwriteClient.databaseId,
           collectionId: appwriteClient.postCollectionId,
           documentId: postId,
-          data: data,
+          data: {
+            'user_id': post.user_id,
+            'comment': post.comment,
+            'tags': post.tags,
+            'image_id': post.image_id,
+            'image_blur_hash': post.image_blur_hash,
+          },
           permissions: [
             Permission.read(Role.users()),
             Permission.update(Role.user(authRepository.currentUser!.$id)),

@@ -93,7 +93,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // todo = fertig
+                          //  = fertig
                           // App aus und ersetze Sommerbootcamp '23 unten mit
                           // dem Namen, den du dir ausgedacht hast.
                           Text(
@@ -141,7 +141,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                           const Icon(Icons.lock_outline),
                                       suffixIcon: IconButton(
                                         onPressed: () {
-                                        // todo = Fertig
+                                        //  = Fertig
                                            setState(() {
                                              _obscurePassword =
                                                  !_obscurePassword;
@@ -149,7 +149,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
 
                                         },
-                                        // todo = Fertig
+                                        //  = Fertig
                                         // nachdem ob das Passwort angezeigt
                                         // wird oder nicht. Suche dir ein
                                         // passendes Icon, dass angezeigt
@@ -169,12 +169,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   MaterialButton(
                                     onPressed: () async {
                                       try {
-                                        // TODO = fertig
+                                        //  = fertig
 
                                         if (!_formKey.currentState!.validate()) {
                                           throw Exception('Eingabe falsch');
                                         }
-                                        // TODO = fertig
+                                        //  = fertig
                                         // Passwort ein schaue dir dazu die
                                         // Klasse unter
                                         // lib/features/auth/data/auth.repository.impl.dart
@@ -183,7 +183,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       } catch (e) {
                                          await showDialog(context: context, builder: buildAlertDialog);
                                          }
-                                        // TODO = fertig
+                                        //  = fertig
                                         // die Nutzeranmeldung, bei einem Fehler
                                         // soll dieser entsprechend angezeigt
                                         // werden Tipp: schau dir die Funktion

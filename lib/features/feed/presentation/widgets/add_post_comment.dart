@@ -1,10 +1,16 @@
-import 'dart:math';
+
+import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+
+import '../../shared/feed.providers.dart';
+
 
 /// Add Post Comment Page
 class AddPostComment extends ConsumerStatefulWidget {
@@ -23,6 +29,37 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
   final TextEditingController hashtagTextController = TextEditingController();
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
 
+  Widget buildAlertDialog(BuildContext context) {
+    const title = 'Posten fehlgeschlagen';
+    const content = 'geh zurück, keiner mag dich';
+    if (Platform.isIOS) {
+      return CupertinoAlertDialog(
+        title: const Text(title),
+        content: const Text(content),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      );
+    }
+
+    return AlertDialog(
+      title: const Text(title),
+      content: const Text(content),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    );
+  }
   // final FeedService feedService = FeedService();
   bool isSaving = false;
   bool h = true;
@@ -36,7 +73,7 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
 
     commentTextController.addListener(() {
   int chars = commentTextController.text.length;
-      // TODO = fertig
+      //  = fertig
     setState(() {
        commentTextController.text.length;
     });
@@ -74,7 +111,7 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                   ),
 
 
-                  // TODO = fertig
+                  //  = fertig
                   // Zeichen und gebe die Anzahl der bereits eingegebene Zeichen
                   // unterhalb des Formularfeldes aus.
                   TextFormField(
@@ -151,7 +188,7 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                         return null;
                       }
                       final tags = text.split(' ');
-                      // TODO = fertig
+                      //  = fertig
                       // (#) beginnen
                       for (var item in tags){
                         if(!item.startsWith('#')){
@@ -183,7 +220,7 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
               : () {
             Navigator.pop(context);
 
-            // TODO = fertig
+            //  = fertig
                   // Schau dazu am besten an welche Funktionen
                   // 'Navigator.of(context)' zur Verfügung stellt.
                 },
@@ -201,16 +238,16 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
         ElevatedButton(
           onPressed: isSaving
               ? null
-              : () {
+              : () async {
 
                   // TODO(team): Validiere die Eingaben und speichere
                   // die Daten im Backend und kehre bei Erfolg auf die FeedPage
                   // zurück. Ist das speichern erfolglos, gebe einen Hinweis aus
                   // und verbleibe auf dieser Seite
 
-                  // TODO(team): Eingaben in untenstehenden if-Bedingung
+                  // fertig: Eingaben in untenstehenden if-Bedingung
                   // validieren
-                  if (!formState.currentState!.validate()) {
+                  if (formState.currentState!.validate()) {
                     final String tagsString = hashtagTextController.text;
 
                     List<String> list = tagsString.split(' ');
@@ -219,17 +256,20 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                     // Datenstruktur 'Liste' ist
 
                     try {
-                      // TODO(team): den Post abschicken - schaue dir dazu die
+                      // fertig den Post abschicken - schaue dir dazu die
                       // Klasse unter
                       // lib/features/feed/data/feed.repository.impl.dart
                       // an. Diese Klasse kann das. Wenn das Abschicken geklappt
                       // hat, dann kehre zur FeedPage zurück.
+                       await  ref.read(FeedProviders.feedRepository).createPost(comment: commentTextController.value.text, tags: list, image: widget.image );
+                       GoRouter.of(context).push('/feed',);
+                      throw Exception();
 
-                      GoRouter.of(context).push('/feed',);
                     } catch (e) {
+
                       // TODO(team): Aufgabe: Erstelle den Fehlerdialog hier,
                       // falls ein Fehler aufgetreten ist.
-                        print('Ein Fehler ist aufgetreten: $e');
+                      await showDialog(context: context, builder: buildAlertDialog);
                     }
                   }
                 },
