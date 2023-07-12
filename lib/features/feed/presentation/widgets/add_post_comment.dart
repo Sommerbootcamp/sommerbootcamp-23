@@ -2,6 +2,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../shared.dart';
 
 /// Add Post Comment Page
 class AddPostComment extends ConsumerStatefulWidget {
@@ -142,9 +145,7 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
           onPressed: isSaving
               ? null
               : () {
-                  // TODO(team): Aufgabe: Navigiere zurück zur vorherigen Seite.
-                  // Schau dazu am besten an welche Funktionen
-                  // 'Navigator.of(context)' zur Verfügung stellt.
+                  Navigator.of(context).pop();
                 },
           child: const Row(
             children: [
@@ -168,10 +169,15 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
 
                   // TODO(team): Eingaben in untenstehenden if-Bedingung
                   // validieren
-                  if (true) {
+                  if (true == formState.currentState?.validate()) {
+                    setState(() {
+                      isSaving = true;
+                    });
                     // TODO(team): Tags aus dem Hastag Textfeld als Liste in
                     // eine Variable speichern. Recherchiere was die
                     // Datenstruktur 'Liste' ist
+
+                    final hashtags = hashtagTextController.text.split(' ');
 
                     try {
                       // TODO(team): den Post abschicken - schaue dir dazu die
@@ -179,9 +185,24 @@ class _AddPostCommentState extends ConsumerState<AddPostComment> {
                       // lib/features/feed/data/feed.repository.impl.dart
                       // an. Diese Klasse kann das. Wenn das Abschicken geklappt
                       // hat, dann kehre zur FeedPage zurück.
+                      ref
+                          .read(FeedProviders.feedRepository)
+                          .createPost(
+                            comment: commentTextController.text,
+                            tags: hashtags,
+                            image: widget.image,
+                          )
+                          .then(
+                            (_) => GoRouter.of(context).go('/feed'),
+                          );
                     } catch (e) {
                       // TODO(team): Aufgabe: Erstelle den Fehlerdialog hier,
                       // falls ein Fehler aufgetreten ist.
+                      debugPrint('Fehler');
+                    } finally {
+                      setState(() {
+                        isSaving = false;
+                      });
                     }
                   }
                 },
